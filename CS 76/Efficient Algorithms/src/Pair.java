@@ -1,6 +1,6 @@
 //Dan Albert Solis
 //3/6/2020
-//Lists, Stacks & Queues
+//Efficient Algorithms
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -89,29 +89,69 @@ class Pair{
     }
 
     /** Return the distance of the closest pair of points */
-
-
-    public double getDistance(Point p1, Point p2){
+    public static double distance(Point p1, Point p2){
 
         return Math.sqrt(Math.pow(p2.getX() - p1.getX(),2) + Math.pow(p2.getY() - p1.getY(),2));
     }
 
-    public static Pair getClosestPair(double[][]  points){
+    /** Return the distance of the closest pair of points */
+    public static double distance (double x1, double y1, double x2, double y2) {
+        return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+    }
 
-        return
+    /** Return the distance of the closest pair of points in pointsOrderedOnX[low, high].
+     * This is a recursive method. pointsOrderedOnX and pointsOrderedOnY are not changed in the subsequent recursive calls.*/
+    public static Pair distance(Point [ ] pointsOrderedOnX, int low,
+                                int high, Point [ ] pointsOrderedOnY){
+        return distance()
+    }
+
+
+
+    public static Pair getClosestPair(double[][]  points){
+        int p1 = 0, p2 = 1; // Initial two points
+        double shortestDistance = distance(points[p1][0], points[p1][1],
+                points[p2][0], points[p2][1]);
+        for (int i = 0; i < points.length; i++) {
+            for (int j = i + 1; j < points.length; j++) {
+                double distance = distance(points[i][0], points[i][1],
+                        points[j][0], points[j][1]); // Find distance
+
+                if (shortestDistance > distance) {
+                    p1 = i; // Update p1
+                    p2 = j; // Update p2
+                    shortestDistance = distance; // Update shortestDistance
+                }
+            }
+        }
+        return new Pair(new Point(points[p1][0],points[p2][1]),new Point(points[p2][0],points[p2][1]));
     }
 
     /** Return the distance of the closest pair of points */
+    public static Pair getClosestPair(Point []  points){
+        int p1 = 0, p2 = 1;
+        double shortestDistance = distance(points[p1], points[p2]);
 
-    public static Pair getClosestPair(Point [ ]  points){
-        for (int i = 0; i < )
+        for (int i = 0; i < points.length; i++) {
+            for (int j = i + 1; j < points.length; j++) {
+                double distance = distance(points[i], points[j]);
+
+                if (shortestDistance > distance){
+                    p1 = i;
+                    p2 = j;
+                    shortestDistance = distance;
+                }
+
+                }
+            }
+        return new Pair(points[p1], points[p2]);
     }
 
 
 
 }
 
-public class PointTest{
+/** public class PointTest{
     public static void main(String[] args){
         Point[] arr = new Point[100]; //Declares and initializes S
         Point[] s1 = new Point[arr.length/2]; //S1
@@ -168,3 +208,4 @@ public class PointTest{
     }
 
 }
+ */
